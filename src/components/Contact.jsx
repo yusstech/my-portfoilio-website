@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { FaEnvelope, FaTwitter, FaLinkedin, FaPaperPlane, FaCalendarAlt, FaExternalLinkAlt } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
+import ReCAPTCHA from 'react-google-recaptcha';
 import '../contact.css';
 
 function Contact() {
@@ -16,7 +17,9 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [contactMethod, setContactMethod] = useState('general'); // 'general' or 'consultation'
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
   const formRef = useRef(null);
+  const recaptchaRef = useRef(null);
   
   // Calendly link
   const calendlyUrl = 'https://calendly.com/yusufmuhammed';
@@ -32,6 +35,18 @@ function Contact() {
       setErrors(prev => ({
         ...prev,
         [name]: ''
+      }));
+    }
+  };
+  
+  // Handle reCAPTCHA verification
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+    // Clear related error if exists
+    if (errors.recaptcha) {
+      setErrors(prev => ({
+        ...prev,
+        recaptcha: ''
       }));
     }
   };
@@ -80,6 +95,11 @@ function Contact() {
       newErrors.message = 'Message must be at least 10 characters';
     }
     
+    // Validate reCAPTCHA
+    if (!recaptchaValue) {
+      newErrors.recaptcha = 'Please verify you are not a robot';
+    }
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -93,6 +113,19 @@ function Contact() {
     
     setIsSubmitting(true);
     
+    // Rate limiting - store last submission time in localStorage
+    const lastSubmission = localStorage.getItem('lastFormSubmission');
+    const now = Date.now();
+    
+    if (lastSubmission && now - parseInt(lastSubmission) < 60000) { // 1 minute rate limit
+      setSubmitStatus({
+        message: 'Please wait a moment before submitting again.',
+        isError: true
+      });
+      setIsSubmitting(false);
+      return;
+    }
+    
     // EmailJS implementation with provided Service ID
     try {
       await emailjs.sendForm(
@@ -101,6 +134,9 @@ function Contact() {
         formRef.current,
         'tB0UhK5iEfBCivY94'
       );
+      
+      // Store submission time for rate limiting
+      localStorage.setItem('lastFormSubmission', now.toString());
       
       setSubmitStatus({
         message: 'Message sent successfully! I\'ll get back to you soon.',
@@ -115,6 +151,12 @@ function Contact() {
         message: '',
         purpose: 'general'
       });
+      
+      // Reset reCAPTCHA
+      setRecaptchaValue(null);
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
       
     } catch (error) {
       console.error('Error sending email:', error);
@@ -320,6 +362,16 @@ function Contact() {
                     placeholder="Your Message"
                   />
                   {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
+                </div>
+                
+                {/* ReCAPTCHA */}
+                <div className="mt-6">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey="YOUR_RECAPTCHA_SITE_KEY"
+                    onChange={handleRecaptchaChange}
+                  />
+                  {errors.recaptcha && <p className="text-red-500 text-sm mt-1">{errors.recaptcha}</p>}
                 </div>
                 
                 {/* Submit Button */}
