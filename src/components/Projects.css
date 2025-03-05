@@ -72,3 +72,48 @@
   background-color: #d1fae5;
   color: #065f46;
 }
+
+/* Tech stack icons styling */
+.tech-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2A2A2A;
+  border-radius: 8px;
+  padding: 10px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.tech-icon-container:hover {
+  transform: translateY(-5px);
+  background-color: #333333;
+}
+
+.tech-icon {
+  color: #D3E97A;
+}
+
+/* Add specific colors for tech icons if desired */
+.tech-icon[title="WordPress"] {
+  color: #21759b;
+}
+
+.tech-icon[title="React"] {
+  color: #61dafb;
+}
+
+.tech-icon[title="Node.js"] {
+  color: #68a063;
+}
+
+.tech-icon[title="Express.js"] {
+  color: #ffffff;
+}
+
+/* Fallback for tech labels */
+.tech-label {
+  color: #D3E97A;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+}

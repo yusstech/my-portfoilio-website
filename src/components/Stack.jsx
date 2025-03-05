@@ -21,7 +21,6 @@ function Stack() {
         { id: 17, name: 'Docker', icon: <FaDocker /> },
         { id: 18, name: 'AWS', icon: <FaAws /> },
         { id: 19, name: 'Git', icon: <FaGitAlt /> },
-        { id: 20, name: 'VS Code', icon: <TbBrandVscode /> },
         { id: 21, name: 'Tailwind CSS', icon: <SiTailwindcss /> },
     ];
 
