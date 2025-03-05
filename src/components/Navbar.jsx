@@ -23,6 +23,20 @@ function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.mobile-menu-container')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
   
   return (
     <div className={`navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -30,11 +44,9 @@ function Navbar() {
     }`}>
       <div className="container mx-auto px-4">
         <div className="navbar-start">
-          <div className="dropdown">
-            <div 
-              tabIndex={0} 
-              role="button" 
-              className="mobile-menu lg:hidden"
+          <div className="mobile-menu-container relative lg:hidden">
+            <button 
+              className="mobile-menu p-2"
               onClick={toggleMenu}
             >
               {isMenuOpen ? (
@@ -42,39 +54,34 @@ function Navbar() {
               ) : (
                 <FaAlignRight className="h-5 w-5 text-white" />
               )}
-            </div>
+            </button>
+            
             {isMenuOpen && (
-              <ul
-                tabIndex={0}
-                className="menu menu-text menu-sm dropdown-content bg-[#111111] border border-[#222222] rounded-lg z-50 mt-3 w-52 p-4 shadow-xl"
-              >
-                <li><a href="/" className="py-2 hover:text-[#d3e97a] transition-colors">Home</a></li>
-                <li><a href="/#work" className="py-2 hover:text-[#d3e97a] transition-colors">Work</a></li>
-                <li><a href="/about" className="py-2 hover:text-[#d3e97a] transition-colors">About Me</a></li>
-                <li><a href="/#contact" className="py-2 hover:text-[#d3e97a] transition-colors">Contact</a></li>
-              </ul>
+              <div className="absolute top-10 left-0 w-56 bg-[#111111] border border-[#222222] rounded-lg shadow-lg z-50">
+                <ul className="py-2">
+                  <li><a href="/" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Home</a></li>
+                  <li><a href="/#work" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Work</a></li>
+                  <li><a href="/about" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">About Me</a></li>
+                  <li><a href="/#contact" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Contact</a></li>
+                </ul>
+              </div>
             )}
           </div>
+        </div>
+        
+        <div className="navbar-center flex justify-center">
           <a href="/" className="logo-text text-xl font-bold text-white">
             <span className="text-[#d3e97a]">Y</span>USUF <span className="text-[#d3e97a]">M</span>UHAMMED
           </a>
         </div>
         
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal gap-6">
             <li><a href="/" className="text-white hover:text-[#d3e97a] transition-colors">Home</a></li>
             <li><a href="/#work" className="text-white hover:text-[#d3e97a] transition-colors">Work</a></li>
             <li><a href="/about" className="text-white hover:text-[#d3e97a] transition-colors">About Me</a></li>
+            <li><a href="/#contact" className="text-white hover:text-[#d3e97a] transition-colors">Contact</a></li>
           </ul>
-        </div>
-        
-        <div className="navbar-end">
-          <a 
-            href="/#contact" 
-            className="btn btn-sm md:btn-md border-[#d3e97a] bg-transparent text-[#d3e97a] hover:bg-[#d3e97a] hover:text-black transition-all"
-          >
-            Contact Me
-          </a>
         </div>
       </div>
     </div>

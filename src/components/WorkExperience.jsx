@@ -106,7 +106,7 @@ function WorkExperience() {
         <div className="text-center">
           <a 
             href="/resume.pdf" 
-            download 
+            download="Yusuf_Muhammed_Resume.pdf"
             className="inline-flex items-center gap-2 btn btn-lg border-[#d3e97a] bg-transparent text-[#d3e97a] hover:bg-[#d3e97a] hover:text-black transition-all"
           >
             <FaDownload />
