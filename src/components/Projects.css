@@ -1,0 +1,74 @@
+.projects-container {
+  width: 1224px;
+  height: 600px;
+  background-color: #f9fafb;
+}
+
+.project-image {
+  width: 486px;
+  height: 347px;
+}
+
+.project-card {
+  background-color: #1A1A1A;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.project-title {
+  color: white;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.project-description {
+  color: #C7C7C7;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.project-info-title {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.project-info {
+  color: #C7C7C7;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.live-demo, .github-link {
+  color: #D3E97A;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.border-demo {
+  border: 2px #D3E97A solid;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+}
+
+.badge-outline {
+  border: 1px solid #d1d5db;
+}
+
+.badge-secondary {
+  background-color: #d1fae5;
+  color: #065f46;
+}
