@@ -7,12 +7,14 @@ import Stack from './components/Stack';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AboutPage from './page/AboutPage';
+import WorkExperience from './components/WorkExperience';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/work" element={<WorkExperience/>} />
         <Route path="/" element={
           <div>
             <Navbar />

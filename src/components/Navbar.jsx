@@ -60,7 +60,7 @@ function Navbar() {
               <div className="absolute top-10 left-0 w-56 bg-[#111111] border border-[#222222] rounded-lg shadow-lg z-50">
                 <ul className="py-2">
                   <li><a href="/" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Home</a></li>
-                  <li><a href="/#work" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Work</a></li>
+                  <li><a href="/work" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Work</a></li>
                   <li><a href="/about" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">About Me</a></li>
                   <li><a href="/#contact" className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors">Contact</a></li>
                 </ul>
