@@ -49,7 +49,7 @@ function Blog() {
                   <Link to={`/blog/${post.id}`}>
                     {post.title}
                   </Link>
-                </h3>
+                </h3> t
                 
                 <p className="text-[#C7C7C7] text-sm mb-4">
                   {post.excerpt}
