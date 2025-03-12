@@ -3,7 +3,7 @@ import { blogPosts } from '../blogdata';
 import { FaArrowRight, FaClock } from 'react-icons/fa';
 
 function Blog() {
-  // Get the first 3 blog posts for the featured section
+
   const featuredPosts = blogPosts.slice(0, 3);
 
   return (

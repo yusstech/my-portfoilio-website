@@ -19,7 +19,7 @@ function Home() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/" element={
-          <div>
+          <div className="max-w-[1440px] mx-auto overflow-x-hidden">
             <Navbar />
             <Hero />
             <Stack />
