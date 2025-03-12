@@ -128,9 +128,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 I'm always open to interesting conversations and opportunities. Feel free to reach out!
 
 <div align="center">
-  <a href="https://linkedin.com/in/yourusername">LinkedIn</a> •
-  <a href="https://github.com/yourusername">GitHub</a> •
-  <a href="mailto:youremail@example.com">Email</a>
+  <a href="https://linkedin.com/in/yusufmuhammed">LinkedIn</a> •
+  <a href="https://github.com/yusstech">GitHub</a> •
+  <a href="mailto:yusuf@yusstech.com">Email</a>
 </div>
 
 ---
