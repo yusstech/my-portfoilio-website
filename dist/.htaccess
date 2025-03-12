@@ -1,9 +1,18 @@
 # Enable rewriting
-Options -MultiViews
+Options -MultiViews +FollowSymLinks
 RewriteEngine On
 
-# Handle React routing
+# Set base directory
 RewriteBase /
+
+# Allow access to all files and directories
+<FilesMatch ".*">
+    Order Allow,Deny
+    Allow from all
+    Require all granted
+</FilesMatch>
+
+# Handle React routing
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
@@ -12,6 +21,10 @@ RewriteRule ^ index.html [QSA,L]
 # HTTPS redirect
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+
+# Handle errors
+ErrorDocument 403 /index.html
+ErrorDocument 404 /index.html
 
 # Caching Headers
 <IfModule mod_expires.c>
@@ -53,10 +66,24 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
     AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Security Headers
+# Security Headers (modified to be less restrictive)
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-XSS-Protection "1; mode=block"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-</IfModule> 
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "*"
+    
+    # Remove strict HSTS for troubleshooting
+    # Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Ensure index.html is the default document
+DirectoryIndex index.html
+
+# Allow access to all directories
+<Directory />
+    Options FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory> 
