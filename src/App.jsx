@@ -5,7 +5,7 @@ function App() {
      <>
      
      <Home />
-     </>
+ion and pick fr     </>
   );
 }
 
