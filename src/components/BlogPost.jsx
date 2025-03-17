@@ -17,9 +17,9 @@ function BlogPost() {
             <div className="text-center">
               <h1 className="text-4xl font-bold text-white mb-4">Post Not Found</h1>
               <p className="text-[#C7C7C7] mb-8">The blog post you&apos;re looking for doesn&apos;t exist.</p>
-              <Link
+           <Link
                 to="/blog"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#222222] text-[#d3e97a] rounded-full hover:bg-[#d3e97a] hover:text-black transition-all duration-300"
+                className="inline-flex itemsl-center gap-2 px-6 py-3 bg-[#222222] text-[#d3e97a] rounded-full hover:bg-[#d3e97a] hover:text-black transition-all duration-300"
               >
                 <FaArrowLeft />
                 Back to Blog
