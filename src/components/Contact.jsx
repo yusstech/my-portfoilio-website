@@ -368,7 +368,7 @@ function Contact() {
                 <div className="mt-6">
                   <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey="YOUR_RECAPTCHA_SITE_KEY"
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LcVLxApAAAAAPvbRZL-BKiWNh0nLcGAaHnHQ_7B"}
                     onChange={handleRecaptchaChange}
                   />
                   {errors.recaptcha && <p className="text-red-500 text-sm mt-1">{errors.recaptcha}</p>}
