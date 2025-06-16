@@ -97,6 +97,15 @@ function Navbar() {
                     </Link>
                   </li>
                   <li>
+                    <Link 
+                      to="/wordpress-maintenance" 
+                      className={`block px-4 py-2 transition-colors ${isActive('/wordpress-maintenance') ? 'text-[#d3e97a]' : 'text-white hover:text-[#d3e97a]'}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      WordPress Maintenance
+                    </Link>
+                  </li>
+                  <li>
                     <a 
                       href="/#contact" 
                       className="block px-4 py-2 text-white hover:text-[#d3e97a] transition-colors"
@@ -141,6 +150,14 @@ function Navbar() {
                 className={`transition-colors ${isActive('/about') ? 'text-[#d3e97a]' : 'text-white hover:text-[#d3e97a]'}`}
               >
                 About Me
+              </Link>
+            </li>
+            <li>
+              <Link 
+                to="/wordpress-maintenance" 
+                className={`transition-colors ${isActive('/wordpress-maintenance') ? 'text-[#d3e97a]' : 'text-white hover:text-[#d3e97a]'}`}
+              >
+                WordPress Maintenance
               </Link>
             </li>
             <li>
