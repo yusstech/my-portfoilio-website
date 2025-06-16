@@ -1,7 +1,8 @@
+/* global Intl */
 import { useState } from 'react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 function WordPressMaintenance() {
   // WhatsApp number with Nigerian country code (234) and without leading zero
@@ -15,13 +16,29 @@ function WordPressMaintenance() {
     }));
   };
 
-  // Function to categorize features
+  // Function to categorize features with more specific categories
   const categorizeFeatures = (features) => {
     const categories = {
-      maintenance: [],
-      ecommerce: [],
-      support: [],
-      limitations: []
+      maintenance: {
+        title: 'Premium Maintenance',
+        icon: '🛠️',
+        features: []
+      },
+      ecommerce: {
+        title: 'Advanced E-commerce',
+        icon: '🛍️',
+        features: []
+      },
+      support: {
+        title: 'Business Support',
+        icon: '💬',
+        features: []
+      },
+      limitations: {
+        title: 'Limitations',
+        icon: 'ℹ️',
+        features: []
+      }
     };
 
     features.forEach(feature => {
@@ -29,23 +46,31 @@ function WordPressMaintenance() {
           feature.toLowerCase().includes('theme') || 
           feature.toLowerCase().includes('security') || 
           feature.toLowerCase().includes('hosting') ||
-          feature.toLowerCase().includes('optimization')) {
-        categories.maintenance.push(feature);
+          feature.toLowerCase().includes('optimization') ||
+          feature.toLowerCase().includes('backup') ||
+          feature.toLowerCase().includes('caching') ||
+          feature.toLowerCase().includes('database')) {
+        categories.maintenance.features.push(feature);
       } else if (feature.toLowerCase().includes('woocommerce') || 
                  feature.toLowerCase().includes('payment') || 
                  feature.toLowerCase().includes('inventory') || 
                  feature.toLowerCase().includes('product') ||
                  feature.toLowerCase().includes('cart') ||
-                 feature.toLowerCase().includes('order')) {
-        categories.ecommerce.push(feature);
+                 feature.toLowerCase().includes('order') ||
+                 feature.toLowerCase().includes('conversion') ||
+                 feature.toLowerCase().includes('seo') ||
+                 feature.toLowerCase().includes('analytics') ||
+                 feature.toLowerCase().includes('marketing')) {
+        categories.ecommerce.features.push(feature);
       } else if (feature.toLowerCase().includes('support') || 
                  feature.toLowerCase().includes('response') || 
                  feature.toLowerCase().includes('update') || 
                  feature.toLowerCase().includes('consultation') ||
-                 feature.toLowerCase().includes('audit')) {
-        categories.support.push(feature);
+                 feature.toLowerCase().includes('audit') ||
+                 feature.toLowerCase().includes('emergency')) {
+        categories.support.features.push(feature);
       } else {
-        categories.limitations.push(feature);
+        categories.limitations.features.push(feature);
       }
     });
 
@@ -133,21 +158,21 @@ function WordPressMaintenance() {
         // Premium Maintenance
         'Weekly plugin updates + staging site testing',
         'Custom theme modifications and updates',
-        'Performance optimization (advanced caching, database)',
-        'Enterprise-level security',
-        'Business hosting + domain + SSL renewal',
+        'Performance optimization (advanced caching, database optimization)',
+        'Enterprise-level security (advanced threat detection, daily backups)',
+        'Business hosting (dedicated resources) + domain + SSL renewal',
         // Advanced E-commerce
         'Conversion rate optimization tweaks',
-        'Advanced SEO optimization',
+        'Advanced SEO optimization (product schema, site structure)',
         'Email marketing integration maintenance',
         'Customer review system optimization',
         'Automated backup system (daily)',
-        'Google Analytics and conversion tracking',
+        'Basic Google Analytics and conversion tracking setup',
         // Business Support
         'Priority support (same-day response)',
         'Unlimited minor content updates',
         'Monthly strategy consultation call',
-        'Quarterly website audit',
+        'Quarterly website audit and recommendations',
         'Emergency support for critical issues'
       ],
       recommended: false
@@ -174,9 +199,9 @@ function WordPressMaintenance() {
     return `https://wa.me/${whatsappNumber}?text=${getWhatsAppMessage(service)}`;
   };
 
-  // Function to render feature category
-  const renderFeatureCategory = (title, features, category) => {
-    if (!features.length) return null;
+  // Function to render feature category with improved styling
+  const renderFeatureCategory = (category) => {
+    if (!category.features.length) return null;
 
     const categoryStyles = {
       maintenance: 'border-l-4 border-[#d3e97a] bg-[#d3e97a]/5',
@@ -185,11 +210,18 @@ function WordPressMaintenance() {
       limitations: 'border-l-4 border-[#FF9800] bg-[#FF9800]/5'
     };
 
+    const categoryKey = Object.keys(categoryStyles).find(key => 
+      category.title.toLowerCase().includes(key)
+    ) || 'maintenance';
+
     return (
-      <div className={`mb-4 p-3 rounded-r-lg ${categoryStyles[category]}`}>
-        <h4 className="font-semibold text-white mb-2">{title}</h4>
-        <ul className="space-y-2">
-          {features.map((feature, index) => (
+      <div className={`mb-6 p-4 rounded-lg ${categoryStyles[categoryKey]}`}>
+        <div className="flex items-center mb-3">
+          <span className="text-2xl mr-2">{category.icon}</span>
+          <h4 className="font-semibold text-white text-lg">{category.title}</h4>
+        </div>
+        <ul className="space-y-3">
+          {category.features.map((feature, index) => (
             <li key={index} className="flex items-start text-[#C7C7C7] text-sm">
               <svg className="w-4 h-4 text-current mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -234,7 +266,6 @@ function WordPressMaintenance() {
               {services.map((service) => {
                 const categories = categorizeFeatures(service.features);
                 const isExpanded = expandedCards[service.id];
-                const initialFeaturesCount = 5; // Number of features to show initially
 
                 return (
                   <div 
@@ -260,10 +291,9 @@ function WordPressMaintenance() {
                     <p className="text-[#C7C7C7] mb-6">{service.description}</p>
                     
                     <div className="mb-8">
-                      {renderFeatureCategory('Maintenance', categories.maintenance.slice(0, isExpanded ? undefined : 2), 'maintenance')}
-                      {renderFeatureCategory('E-commerce', categories.ecommerce.slice(0, isExpanded ? undefined : 1), 'ecommerce')}
-                      {renderFeatureCategory('Support', categories.support.slice(0, isExpanded ? undefined : 1), 'support')}
-                      {categories.limitations.length > 0 && renderFeatureCategory('Limitations', categories.limitations.slice(0, isExpanded ? undefined : 1), 'limitations')}
+                      {Object.values(categories).map((category) => (
+                        category.features.length > 0 && renderFeatureCategory(category)
+                      ))}
                     </div>
 
                     {!isExpanded && (
@@ -271,7 +301,7 @@ function WordPressMaintenance() {
                         onClick={() => toggleCard(service.id)}
                         className="w-full py-2 mb-4 text-[#d3e97a] hover:text-[#c8de62] transition-colors flex items-center justify-center gap-2"
                       >
-                        Show More Features
+                        Show More Details
                         <FaChevronDown className="w-4 h-4" />
                       </button>
                     )}
